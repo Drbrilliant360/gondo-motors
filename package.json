@@ -1,0 +1,15 @@
+{
+  "name": "gondo-motors",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Gondo Motors — redesigned car marketplace (static site generator, zero dependencies)",
+  "scripts": {
+    "data": "node scripts/prepare-data.mjs",
+    "images": "node scripts/optimize-images.mjs ../gondomotors-clone",
+    "build": "node build/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "dev": "node build/build.mjs && node scripts/serve.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

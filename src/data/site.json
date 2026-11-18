@@ -1,0 +1,27 @@
+{
+  "name": "Gondo Motors",
+  "tagline": "Premium car dealer in Tanzania",
+  "description": "Buy Toyota, Subaru, Mazda, Nissan, BMW, Audi and more in Tanzania. Japanese auction sourcing, shipping and import clearance handled end-to-end by Gondo Motors.",
+  "url": "https://www.gondomotors.com",
+  "phone": "+255 679 400 800",
+  "phoneHref": "+255679400800",
+  "whatsapp": "255679400800",
+  "email": "info@gondomotors.com",
+  "taxCalculator": "https://taxpayerportal.tra.go.tz/#/umvvs/calculator",
+  "offices": [
+    { "label": "Office 1", "address": "Mbezi Mwisho, KMAX COMPLEX, P.O. BOX 1089, Dar es Salaam, Tanzania" },
+    { "label": "Office 2", "address": "Sinza A - Kivulini, Sam Nujoma Road, Near Mlimani City" }
+  ],
+  "salesTeam": [
+    { "name": "John M.", "phone": "+255 611 111 111", "email": "john@gondomotors.com" },
+    { "name": "Mary K.", "phone": "+255 622 222 222", "email": "mary@gondomotors.com" },
+    { "name": "Peter L.", "phone": "+255 633 333 333", "email": "peter@gondomotors.com" },
+    { "name": "Alice T.", "phone": "+255 644 444 444", "email": "alice@gondomotors.com" }
+  ],
+  "social": [
+    { "label": "Facebook", "icon": "fa-facebook-f", "href": "#" },
+    { "label": "Instagram", "icon": "fa-instagram", "href": "#" },
+    { "label": "Twitter", "icon": "fa-x-twitter", "href": "#" },
+    { "label": "YouTube", "icon": "fa-youtube", "href": "#" }
+  ]
+}

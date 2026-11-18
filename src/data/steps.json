@@ -1,0 +1,12 @@
+[
+  { "title": "Sign up", "icon": "fa-user-plus", "text": "Register on our website so our team can contact you and guide you through the process." },
+  { "title": "Contact sales", "icon": "fa-comments", "text": "Discuss car details, ask questions and confirm the vehicle you want." },
+  { "title": "Pay deposit", "icon": "fa-wallet", "text": "Send a deposit to secure your vehicle or start bidding." },
+  { "title": "Find & buy", "icon": "fa-magnifying-glass", "text": "Our experts help you find and purchase the best vehicle." },
+  { "title": "Pay full invoice", "icon": "fa-file-invoice-dollar", "text": "Complete the full payment to start the shipping process." },
+  { "title": "Shipping", "icon": "fa-ship", "text": "Your vehicle will be shipped to your destination port." },
+  { "title": "Receive documents", "icon": "fa-file-lines", "text": "All original documents are delivered to you via DHL." },
+  { "title": "Clear import", "icon": "fa-clipboard-check", "text": "Clear your vehicle at the port and complete import procedures." },
+  { "title": "Share feedback", "icon": "fa-star", "text": "Share your experience with our service." },
+  { "title": "Enjoy your car", "icon": "fa-car-side", "text": "Enjoy your new car and return again for future purchases." }
+]
