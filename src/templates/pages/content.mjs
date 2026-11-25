@@ -1,4 +1,5 @@
 import { esc, html } from '../lib.mjs';
+import { vehicleCard } from '../partials/vehicle-card.mjs';
 
 const head = (title, lead, crumb) => html`<section class="page-head"><div class="container">
   <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>${crumb}</span></nav>
@@ -41,35 +42,66 @@ export function contactPage({ site }) {
     <div class="field"><label for="c-email">Email address <span class="opt">(optional)</span></label><input class="input" id="c-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com"><p class="hint">We’ll use it if we can’t reach you on WhatsApp.</p></div>
     <div class="field"><label for="c-phone">Phone number <span class="opt">(optional)</span></label><input class="input" id="c-phone" name="phone" type="tel" inputmode="tel" pattern="[+0-9 ()\-]{7,}" autocomplete="tel" placeholder="+255 679 400 800"><p class="hint">Include the country code, e.g. +255.</p></div>
     <div class="field"><label for="c-msg">Message <span class="req" aria-hidden="true">*</span></label><textarea class="textarea" id="c-msg" name="message" required minlength="10" maxlength="1000" placeholder="Which car are you looking for? Mention make, model, year and budget."></textarea><p class="hint" data-counter="10">At least 10 characters.</p></div>
+    <input class="sr-only" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="btn btn-whatsapp btn-lg" type="submit" data-busy="Preparing your message…"><i class="fa-brands fa-whatsapp"></i> Send via WhatsApp</button>
+  </form>
+</div></section>
+<section class="section section-alt" id="find-car"><div class="container two-col">
+  <div>
+    <span class="label">Sourcing service</span>
+    <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);margin:14px 0 12px">Ask us to find your car</h2>
+    <p style="color:var(--muted);margin-bottom:18px">Can’t see what you want in our stock? Tell us the make, model and budget. We search the Japanese auctions and reply with real options and a landed price.</p>
+    <div class="assure"><div><i class="fa-solid fa-circle-check"></i><span>No charge for searching</span></div><div><i class="fa-solid fa-circle-check"></i><span>We reply by WhatsApp, phone or email</span></div><div><i class="fa-solid fa-circle-check"></i><span>Track your request in your account if you are logged in</span></div></div>
+  </div>
+  <form class="form-card" id="find-form" novalidate>
+    <h2>Tell us what you need</h2>
+    <div class="form-summary" role="alert" hidden></div>
+    <div class="form-banner success" role="status" data-find-done hidden></div>
+    <div class="range-row">
+      <div class="field"><label for="w-make">Make</label><input class="input" id="w-make" name="wanted_make" maxlength="40" placeholder="e.g. Toyota"></div>
+      <div class="field"><label for="w-model">Model</label><input class="input" id="w-model" name="wanted_model" maxlength="60" placeholder="e.g. Harrier"></div>
+    </div>
+    <div class="range-row">
+      <div class="field"><label for="w-from">Year from</label><input class="input" id="w-from" name="year_from" inputmode="numeric" maxlength="4" placeholder="2015"></div>
+      <div class="field"><label for="w-to">Year to</label><input class="input" id="w-to" name="year_to" inputmode="numeric" maxlength="4" placeholder="2020"></div>
+    </div>
+    <div class="field"><label for="w-budget">Budget in TZS <span class="opt">(optional)</span></label><input class="input" id="w-budget" name="budget_tzs" inputmode="numeric" maxlength="20" placeholder="e.g. 45,000,000"></div>
+    <div class="field"><label for="w-name">Full name <span class="req" aria-hidden="true">*</span></label><input class="input" id="w-name" name="name" required minlength="2" maxlength="80" autocomplete="name"></div>
+    <div class="field"><label for="w-phone">Phone / WhatsApp <span class="req" aria-hidden="true">*</span></label><input class="input" id="w-phone" name="phone" type="tel" inputmode="tel" required pattern="[+0-9 ()\\-]{7,}" autocomplete="tel" placeholder="+255 679 400 800"></div>
+    <div class="field"><label for="w-msg">Anything else? <span class="opt">(optional)</span></label><textarea class="textarea" id="w-msg" name="message" maxlength="1000" style="min-height:96px" placeholder="Colour, mileage, features, when you need it…"></textarea></div>
+    <input class="sr-only" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn btn-primary btn-lg" type="submit" data-busy="Sending…">Send my request</button>
   </form>
 </div></section>`;
   return { path: 'contact.html', title: 'Contact us', description: 'Contact Gondo Motors in Dar es Salaam — offices, phone, email and sales team.', page: 'contact', body };
 }
 
-export function localPage({ site }) {
-  const body = html`${head('Local vehicles marketplace', 'Buy and sell vehicles already in Tanzania. Filter by city and contact sellers directly on WhatsApp.', 'Local vehicles')}
+export function localPage({ site, cars = [] }) {
+  const local = cars.filter((c) => c.source === 'local');
+  const body = html`${head('Local vehicles', 'Vehicles already in Tanzania, ready to view and collect without waiting for shipping.', 'Local vehicles')}
 <section class="section"><div class="container">
-  <div class="city-chips"><span class="chip active">All cities</span>${['Dar es Salaam', 'Dodoma', 'Kigoma', 'Mwanza'].map((c) => `<span class="chip">${c}</span>`)}</div>
-  <div class="empty"><i class="fa-solid fa-tags"></i><h3>No local listings right now</h3><p>Log in or register to post your vehicle — it will appear here for buyers across Tanzania.</p>
-  <p style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="login.html">Log in</a><a class="btn btn-outline" href="signup.html">Register</a></p></div>
+  ${local.length ? `<div class="grid-cars">${local.map((c) => vehicleCard(c, '')).join('')}</div>`
+    : `<div class="empty"><i class="fa-solid fa-tags"></i><h3>No local vehicles right now</h3><p>Our local stock changes often. Browse the cars we can import for you, or tell us what you need and we’ll find it.</p>
+  <p style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="cars.html">Browse all vehicles</a><a class="btn btn-outline" href="contact.html">Ask us to find your car</a></p></div>`}
 </div></section>`;
-  return { path: 'local-vehicles.html', title: 'Local vehicles', description: 'Local vehicles marketplace in Tanzania — Dar es Salaam, Dodoma, Kigoma and Mwanza.', page: 'local', body };
+  return { path: 'local-vehicles.html', title: 'Local vehicles', description: 'Vehicles already in Tanzania from Gondo Motors — view and collect without waiting for shipping.', page: 'local', body };
 }
 
 export function authPage(kind) {
   const login = kind === 'login';
-  const body = html`<div class="auth-wrap"><form class="form-card auth-card" data-auth-form="${kind}" data-guard novalidate>
+  const body = html`<div class="auth-wrap"><form class="form-card auth-card" data-auth-form="${kind}" novalidate>
   <a class="back-link" href="index.html" style="margin-bottom:-4px"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
   <h1>${login ? 'Log in to Gondo Motors' : 'Create your account'}</h1>
   ${login ? '' : '<p class="form-note">Fields marked <span class="req">*</span> are required.</p>'}
   <div class="form-summary" role="alert" hidden></div>
+  <div class="form-banner success" role="status" data-auth-done hidden></div>
   ${login ? '' : '<div class="field"><label for="a-name">Full name <span class="req" aria-hidden="true">*</span></label><input class="input" id="a-name" name="name" required minlength="2" maxlength="80" autocomplete="name" placeholder="e.g. Amina Juma"></div>'}
   <div class="field"><label for="a-email">Email address <span class="req" aria-hidden="true">*</span></label><input class="input" id="a-email" name="email" type="email" inputmode="email" required autocomplete="email" placeholder="name@example.com"></div>
   ${login ? '' : '<div class="field"><label for="a-phone">Phone number <span class="opt">(optional)</span></label><input class="input" id="a-phone" name="phone" type="tel" inputmode="tel" pattern="[+0-9 ()\\-]{7,}" autocomplete="tel" placeholder="+255 679 400 800"><p class="hint">Include the country code, e.g. +255.</p></div>'}
   <div class="field"><label for="a-pass">Password <span class="req" aria-hidden="true">*</span></label>
     <div class="pw"><input class="input" id="a-pass" name="password" type="password" required ${login ? '' : 'minlength="8"'} autocomplete="${login ? 'current-password' : 'new-password'}" placeholder="${login ? 'Your password' : 'At least 8 characters'}"><button class="pw-toggle" type="button" aria-label="Show password" aria-pressed="false"><i class="fa-solid fa-eye"></i></button></div>
-    ${login ? '' : '<div class="strength" data-strength aria-hidden="true"><i></i><i></i><i></i></div><p class="hint" data-strength-text>Use 8+ characters. Add numbers or symbols for a stronger password.</p>'}
+    ${login ? '' : '<div class="strength" data-strength aria-hidden="true"><i></i><i></i><i></i></div><p class="hint" data-strength-text>Use 8+ characters with letters and numbers. Add symbols for a stronger password.</p>'}
+    ${login ? '<p class="hint" style="text-align:right"><a href="forgot-password.html" style="color:var(--accent-dark);font-weight:600">Forgot password?</a></p>' : ''}
   </div>
   <button class="btn btn-primary btn-lg" type="submit" data-busy="${login ? 'Signing in…' : 'Creating account…'}">${login ? 'Log in' : 'Sign up'}</button>
   <p class="foot">${login ? 'New here? <a href="signup.html">Create an account</a>' : 'Already registered? <a href="login.html">Log in</a>'}</p>

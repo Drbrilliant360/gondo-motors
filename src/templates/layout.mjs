@@ -18,8 +18,9 @@ export function layout({ site, title, description, path, root = '', page = '', b
 <meta property="og:site_name" content="${esc(site.name)}">
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(description || site.description)}">
-<meta property="og:image" content="${site.url}/${ogImage || 'assets/img/hero/hero-1.jpg'}">
+<meta property="og:image" content="${ogImage && /^https?:/.test(ogImage) ? ogImage : `${site.url}/${ogImage || 'assets/img/hero/hero-1.jpg'}`}">
 <meta name="theme-color" content="#1a1a2e">
+<script src="${root}assets/js/theme.js"></script>
 <link rel="icon" href="${root}assets/img/brand/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
