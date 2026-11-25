@@ -1,13 +1,11 @@
 // Public catalogue read from the database: vehicles (with photos), settings and editable content.
 // Cached briefly in memory so browsing does not hit Neon on every page view; admin changes call invalidateCatalog().
 import { readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { many } from './db.mjs';
 import { withImages } from '../src/templates/lib.mjs';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const baseSite = JSON.parse(readFileSync(join(root, 'src/data/site.json'), 'utf8'));
+// Referenced through import.meta.url so deployment bundlers (Vercel) include the file with the app.
+const baseSite = JSON.parse(readFileSync(new URL('../src/data/site.json', import.meta.url), 'utf8'));
 const TTL = 15_000;
 let cache = null, loadedAt = 0, loading = null;
 

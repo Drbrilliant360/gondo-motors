@@ -8,7 +8,6 @@
     "data": "node scripts/prepare-data.mjs",
     "images": "node scripts/optimize-images.mjs ../gondomotors-clone",
     "build": "node build/build.mjs",
-    "vercel-build": "node scripts/copy-assets.mjs",
     "serve": "node scripts/serve.mjs",
     "dev": "node build/build.mjs && node --watch server/index.mjs",
     "start": "node server/index.mjs",

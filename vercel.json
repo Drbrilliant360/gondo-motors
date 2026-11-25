@@ -4,7 +4,7 @@
   "buildCommand": "node scripts/copy-assets.mjs",
   "outputDirectory": "public",
   "functions": {
-    "api/index.mjs": { "maxDuration": 30, "includeFiles": "{src/data/**,src/templates/**,node_modules/pdfkit/js/data/**}" }
+    "api/index.mjs": { "maxDuration": 30, "excludeFiles": "{src/assets/**,public/**,dist/**,.pgdata/**}" }
   },
   "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
   "headers": [
